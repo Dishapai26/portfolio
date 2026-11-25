@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disha Pai Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: dark "viewing room" page. Faint grid + two soft glows behind a left-aligned column,
+   a heartbeat line under the name, and each project paired with a working demo. */
+:root{
+  --bg:#0a1220;
+  --panel:#111c31;
+  --line:#243452;
+  --text:#e9eef8;
+  --muted:#a3b0c8;
+  --accent:#f6b26b;
+  --cool:#7fb0ff;
+  --good:#6fd3a0;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Figtree','Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--body);font-size:17px;line-height:1.65;
+  background-image:
+    radial-gradient(900px 500px at 8% -5%,rgba(127,176,255,.18),transparent 60%),
+    radial-gradient(800px 500px at 100% 35%,rgba(246,178,107,.10),transparent 60%),
+    radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:auto,auto,28px 28px;
+  background-attachment:fixed;
+}
+a{color:inherit}
+a:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.4vw,42px);font-weight:700;letter-spacing:-.02em}
+h3{font-size:22px;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+section{padding:72px 0 8px}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:rgba(10,18,32,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:700;font-size:20px;text-decoration:none}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:4px 20px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav a.link{font-size:15px;color:var(--muted);text-decoration:none;padding:4px 0}
+nav a.link:hover{color:var(--text)}
+
+/* hero */
+.hero{padding:72px 0 24px}
+.hero h1{font-size:clamp(54px,11vw,118px);font-weight:800;letter-spacing:-.035em;margin:14px 0 6px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.role{font-size:clamp(19px,2.4vw,25px);color:var(--text);font-weight:500}
+.lede{max-width:62ch;color:var(--muted);margin-top:18px;font-size:18px}
+.ecg{width:min(560px,100%);height:56px;margin:14px 0 4px;display:block}
+.ecg path{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:no-preference){
+  .ecg path{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s .2s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-family:var(--body)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#1a1205;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:22px;color:var(--muted);font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:44px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.stat b{display:block;font-family:var(--display);font-size:38px;font-weight:700;color:var(--accent);line-height:1.1}
+.stat span{font-size:15px;color:var(--muted)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.6fr 1fr;gap:32px}
+.about p{color:var(--muted);font-size:18px}
+.about p+p{margin-top:14px}
+.facts{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;align-self:start}
+.facts div{display:flex;flex-direction:column}
+.facts small{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--cool)}
+
+/* experience */
+.job{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;border-left:4px solid var(--accent)}
+.job-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px}
+.job-top .when{font-family:var(--mono);font-size:14px;color:var(--cool)}
+.job .client{color:var(--muted);margin-top:4px}
+.job ul{margin:18px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
+.job li::marker{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-family:var(--mono);font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--text);background:rgba(127,176,255,.08)}
+
+/* projects */
+.project{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:28px}
+.project .tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.project h3{font-size:28px;margin:8px 0 10px}
+.project .sub{color:var(--muted)}
+.steps{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;padding-left:38px;position:relative;color:var(--text);font-size:16px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:13px;display:grid;place-items:center}
+.demo{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.demo-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.demo-head .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;color:var(--muted);padding:6px 14px;font:500 14px var(--body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#1a1205}
+select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:500 14px var(--body)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kpi small{display:block;font-size:12px;color:var(--muted)}
+.kpi b{font-family:var(--display);font-size:22px;font-weight:700}
+.chart{width:100%;height:auto;display:block}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .ax{fill:var(--muted);font:11px var(--mono)}
+.chart .area{fill:rgba(246,178,107,.16)}
+.chart .ln{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.chart .dot{fill:var(--accent)}
+.chart .cursor{stroke:var(--cool);stroke-width:1;stroke-dasharray:3 3}
+.readout{font-family:var(--mono);font-size:13px;color:var(--cool);min-height:20px;margin-bottom:4px}
+.bars{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.bar{display:grid;grid-template-columns:96px 1fr 48px;align-items:center;gap:10px;background:transparent;border:0;color:var(--text);font:500 14px var(--body);cursor:pointer;text-align:left;padding:2px 0}
+.bar .track{height:12px;border-radius:6px;background:var(--panel);overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--cool);border-radius:6px;transition:width .3s}
+.bar.dim .fill{background:#3a4c70}
+.bar.dim{color:var(--muted)}
+.bar .num{font-family:var(--mono);font-size:13px;text-align:right}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+textarea{width:100%;min-height:120px;resize:vertical;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:16px/1.5 var(--body)}
+.meter{display:flex;align-items:center;gap:14px;margin:14px 0}
+.meter .score{font-family:var(--display);font-size:44px;font-weight:800;min-width:92px;line-height:1}
+.meter .score small{font-size:16px;color:var(--muted);font-weight:500}
+.meter .rail{flex:1;height:12px;border-radius:6px;background:var(--panel);overflow:hidden}
+.meter .rail i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .3s,background .3s}
+.verdict{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.checks{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px}
+.checks .mark{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);margin-top:3px}
+.checks li.ok .mark{background:var(--good);border-color:var(--good)}
+.checks li .tip{display:block;color:var(--muted);font-size:14px}
+.checks li.ok .tip{display:none}
+.mini{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;border:1px dashed var(--line);border-radius:14px;padding:16px 20px;color:var(--muted)}
+.mini b{color:var(--text);font-family:var(--display);font-size:19px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.skill{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.skill h3{font-size:18px;margin-bottom:12px;color:var(--cool)}
+.skill .chips{margin-top:0}
+
+/* education etc */
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card .eyebrow{margin-bottom:8px;display:block}
+.card .muted{color:var(--muted)}
+.card b{font-family:var(--display);font-size:20px;font-weight:600}
+
+/* contact */
+.contact{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:36px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+.contact h2{margin-bottom:12px}
+.contact p{color:var(--muted)}
+.rows{display:flex;flex-direction:column;gap:14px}
+.rows div{display:flex;flex-direction:column;border-bottom:1px solid var(--line);padding-bottom:12px}
+.rows small{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--cool)}
+.rows a{text-decoration:none;font-size:18px;font-weight:500;overflow-wrap:anywhere}
+.rows a:hover{color:var(--accent)}
+footer{padding:48px 0 40px;color:var(--muted);font-size:14px;text-align:left}
+
+.back{display:none;color:var(--cool);text-decoration:none;font-size:15px;margin-bottom:14px}
+.back:hover{color:var(--accent)}
+[hidden]{display:none!important}
+/* single-project view: reached by #clinicpulse or #promptlens */
+body.solo .hero,body.solo section:not(#projects),body.solo footer,body.solo .mini,body.solo #projects .sec-head,body.solo .project:not(.active),body.solo .plinks .open{display:none}
+body.solo #projects{padding-top:32px}
+body.solo .project.active .back{display:inline-block}
+body.solo .project.active{grid-template-columns:1fr;max-width:820px}
+@media (max-width:860px){
+  .about,.project,.contact{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .project,.contact{padding:20px}
+  .bar{grid-template-columns:84px 1fr 44px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Disha<span>.</span>Pai</a>
+    <ul>
+      <li><a class="link" href="#about">About</a></li>
+      <li><a class="link" href="#experience">Experience</a></li>
+      <li><a class="link" href="#projects">Projects</a></li>
+      <li><a class="link" href="#skills">Skills</a></li>
+      <li><a class="link" href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <header class="hero">
+    <span class="eyebrow">Bengaluru, India</span>
+    <h1>Disha <em>Pai</em></h1>
+    <p class="role">UI Developer</p>
+    <svg class="ecg" viewBox="0 0 600 60" aria-hidden="true" preserveAspectRatio="none"><path d="M0 30 H120 L135 30 L145 8 L158 52 L170 30 H260 L272 30 L280 20 L290 30 H360 L372 30 L382 4 L396 56 L408 30 H600"/></svg>
+    <p class="lede">I am a UI Developer who builds fast, reliable web interfaces in TypeScript, Angular and React, and works directly with customers to turn requirements into software that ships. For the past two years that has meant a healthcare platform for a global life-sciences company.</p>
+    <div class="cta">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn" href="#projects">See my projects</a>
+      <a class="btn" href="https://linkedin.com/in/disha-pai-789038223/">LinkedIn</a>
+    </div>
+    <div class="meta">
+      <span>bachodidishapai26@gmail.com</span>
+      <span>+91 63635 44483</span>
+      <span>Available for onsite work in Bengaluru</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>2+</b><span>years building production web apps</span></div>
+      <div class="stat"><b>90%+</b><span>unit test coverage maintained</span></div>
+      <div class="stat"><b>15%</b><span>faster initial page load</span></div>
+      <div class="stat"><b>20%</b><span>better development efficiency</span></div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="sec-head"><span class="eyebrow">About</span><h2>Customer-facing engineer who owns delivery</h2></div>
+    <div class="about">
+      <div>
+        <p>I am a UI Developer with more than two years of experience shipping production web applications for a global healthcare client, using TypeScript, React.js, Angular 17+ and JavaScript.</p>
+        <p>I am comfortable with the full delivery cycle alongside customer-facing teams: turning requirements into designs, building and integrating RESTful APIs, securing application flow, and keeping releases dependable through unit testing, code reviews and CI/CD with GitHub Actions.</p>
+        <p>I also work with GenAI and AI coding tools, including GitHub Copilot, prompt engineering and calling LLM APIs from a UI. I learn fast and do my best work in collaborative, high-growth teams.</p>
+      </div>
+      <aside class="facts">
+        <div><small>Current role</small><span>UI Developer, Cognizant</span></div>
+        <div><small>Client</small><span>Bayer, Radiology Insights</span></div>
+        <div><small>Languages</small><span>English, Hindi, Kannada</span></div>
+        <div><small>Based in</small><span>Bengaluru, Karnataka</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><span class="eyebrow">Experience</span><h2>Work experience</h2></div>
+    <article class="job">
+      <div class="job-top">
+        <h3>UI Developer, Cognizant Technology Solutions</h3>
+        <span class="when">08/2024 to Present</span>
+      </div>
+      <p class="client">Client project: Bayer, Radiology Insights &nbsp;|&nbsp; Life Sciences, Healthcare, Agriculture &nbsp;|&nbsp; Bengaluru</p>
+      <ul>
+        <li>Owned end-to-end delivery of customer-facing UI features for the Bayer Radiology Insights healthcare platform, working with cross-functional teams to take requirements through design, build, testing and release.</li>
+        <li>Integrated complex RESTful APIs through structured service layers, handling asynchronous data flow and JSON to power real-time radiology data visualization.</li>
+        <li>Reduced initial page load time by 15% with lazy loading and memoization, and sustained 90%+ unit test coverage with Karma and Jasmine.</li>
+        <li>Engineered reusable, scalable Angular 17+ components with a component-based architecture, improving development efficiency and maintainability by 20%.</li>
+        <li>Secured application flow and encapsulated business logic with Angular route guards and injectable services, enforcing authentication and navigation control.</li>
+        <li>Built responsive, cross-platform interfaces with HTML5, CSS3 and modern responsive design techniques.</li>
+        <li>Practised strong engineering habits through peer code reviews and GitHub branching and pull-request workflows in an Agile team.</li>
+      </ul>
+      <div class="chips">
+        <span class="chip">Angular 17+</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">RxJS</span><span class="chip">REST APIs</span><span class="chip">JSON</span><span class="chip">Karma</span><span class="chip">Jasmine</span><span class="chip">Git &amp; GitHub</span><span class="chip">GitHub Actions</span><span class="chip">GitHub Copilot</span>
+      </div>
+    </article>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="eyebrow">Projects</span><h2>Things I built, with working demos</h2></div>
+
+    <!-- Project 1 -->
+    <article class="project" id="clinicpulse">
+      <div>
+        <a class="back" href="#projects">&larr; All projects</a>
+        <span class="tag">Project 01 &middot; Analytics Dashboard</span>
+        <h3>ClinicPulse</h3>
+        <p class="sub">A dashboard that shows how many patients each hospital department sees, and how long they wait, so a manager can spot busy days at a glance.</p>
+        <ol class="steps">
+          <li><b>Load the data.</b> An Angular service fetches visit records as JSON from a REST API.</li>
+          <li><b>Filter it.</b> Pick a department and a date range. RxJS streams recompute everything from those two choices.</li>
+          <li><b>Show it.</b> Summary tiles come first, then a daily trend line and a department comparison.</li>
+        </ol>
+        <div class="chips">
+          <span class="chip">Angular</span><span class="chip">TypeScript</span><span class="chip">RxJS</span><span class="chip">REST API</span><span class="chip">Lazy loading</span>
+        </div>
+        <div class="cta plinks">
+          <a class="btn primary open" href="#clinicpulse">Open project page</a>
+          <a class="btn code" data-gh="clinicpulse" href="#" hidden>View code on GitHub</a>
+        </div>
+      </div>
+      <div class="demo" aria-label="ClinicPulse live demo">
+        <div class="demo-head">
+          <span class="lbl">Live demo &middot; sample data</span>
+          <div class="controls">
+            <select id="deptSel" aria-label="Department">
+              <option value="All">All departments</option>
+              <option>Cardiology</option><option>Radiology</option><option>Orthopedics</option><option>Pediatrics</option>
+            </select>
+            <div class="seg" role="group" aria-label="Date range">
+              <button type="button" data-range="7" aria-pressed="false">7d</button>
+              <button type="button" data-range="30" aria-pressed="true">30d</button>
+              <button type="button" data-range="90" aria-pressed="false">90d</button>
+            </div>
+          </div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><small>Total visits</small><b id="kTotal">0</b></div>
+          <div class="kpi"><small>Avg per day</small><b id="kAvg">0</b></div>
+          <div class="kpi"><small>Avg wait</small><b id="kWait">0</b></div>
+          <div class="kpi"><small>Busiest day</small><b id="kPeak">0</b></div>
+        </div>
+        <div class="readout" id="readout" aria-live="polite"></div>
+        <svg class="chart" id="trend" viewBox="0 0 640 220" role="img" aria-label="Daily visits trend"></svg>
+        <div class="bars" id="bars"></div>
+        <p class="note">Click a bar to filter by department. Hover the chart to read a day. Numbers are generated sample data.</p>
+      </div>
+    </article>
+
+    <!-- Project 2 -->
+    <article class="project" id="promptlens">
+      <div>
+        <a class="back" href="#projects">&larr; All projects</a>
+        <span class="tag">Project 02 &middot; Original concept</span>
+        <h3>PromptLens</h3>
+        <p class="sub">A small tool that scores an AI prompt while you type and tells you what is missing. Written as a patent-style idea: <i>a method for real-time scoring of a prompt against a fixed clarity rubric.</i></p>
+        <ol class="steps">
+          <li><b>Read the prompt.</b> As you type, the text is checked against five simple rules.</li>
+          <li><b>Score it.</b> Context, task, limits, output format and example or audience are worth 20 points each.</li>
+          <li><b>Coach it.</b> Every missing item shows one plain tip, so the prompt improves before it is sent to an LLM API.</li>
+        </ol>
+        <div class="chips">
+          <span class="chip">Angular</span><span class="chip">TypeScript</span><span class="chip">Signals</span><span class="chip">Prompt engineering</span><span class="chip">LLM API ready</span>
+        </div>
+        <div class="cta plinks">
+          <a class="btn primary open" href="#promptlens">Open project page</a>
+          <a class="btn code" data-gh="promptlens" href="#" hidden>View code on GitHub</a>
+        </div>
+      </div>
+      <div class="demo" aria-label="PromptLens live demo">
+        <div class="demo-head">
+          <span class="lbl">Live demo &middot; type to score</span>
+          <div class="controls">
+            <button class="btn" type="button" id="strong" style="padding:6px 14px;font-size:14px">Try a strong prompt</button>
+            <button class="btn" type="button" id="weak" style="padding:6px 14px;font-size:14px">Try a weak prompt</button>
+          </div>
+        </div>
+        <label for="prompt" class="lbl" style="font-family:var(--mono);font-size:12px;color:var(--muted)">YOUR PROMPT</label>
+        <textarea id="prompt" spellcheck="false">Write about diabetes.</textarea>
+        <div class="meter">
+          <div class="score"><span id="scoreNum">0</span><small>/100</small></div>
+          <div style="flex:1;min-width:0">
+            <div class="verdict" id="verdict">Vague</div>
+            <div class="rail"><i id="rail"></i></div>
+          </div>
+        </div>
+        <ul class="checks" id="checks"></ul>
+        <p class="note">Version 1 uses plain pattern rules, so every score can be explained. The next step is sending the improved prompt to an LLM API.</p>
+      </div>
+    </article>
+
+    <div class="mini">
+      <div><b>Real-Time Chat Application</b> &nbsp;12/2023 to 05/2024</div>
+      <p style="max-width:60ch">Built end to end with React.js and Hooks: modular components, <code>useState</code> and <code>useEffect</code> for instant message updates, and REST APIs for sign-in and messages.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="eyebrow">Skills</span><h2>What I work with</h2></div>
+    <div class="skills">
+      <div class="skill"><h3>Frontend and languages</h3><div class="chips">
+        <span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">React.js</span><span class="chip">Hooks</span><span class="chip">Angular 17+</span><span class="chip">Standalone Components</span><span class="chip">Angular Signals</span><span class="chip">RxJS</span><span class="chip">Observables</span><span class="chip">NgRx</span><span class="chip">Angular Material</span><span class="chip">Reactive Forms</span><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Responsive Design</span></div></div>
+      <div class="skill"><h3>APIs and architecture</h3><div class="chips">
+        <span class="chip">RESTful APIs</span><span class="chip">HTTP Interceptors</span><span class="chip">JSON</span><span class="chip">SPA</span><span class="chip">Component-based architecture</span><span class="chip">Services &amp; Route Guards</span><span class="chip">Lazy Loading</span><span class="chip">Performance Optimization</span></div></div>
+      <div class="skill"><h3>GenAI and AI coding tools</h3><div class="chips">
+        <span class="chip">Generative AI</span><span class="chip">LLM APIs from a UI</span><span class="chip">Prompt Engineering</span><span class="chip">GitHub Copilot</span><span class="chip">AI-assisted development</span></div></div>
+      <div class="skill"><h3>Engineering practices</h3><div class="chips">
+        <span class="chip">CI/CD (GitHub Actions)</span><span class="chip">Git &amp; GitHub</span><span class="chip">Karma &amp; Jasmine</span><span class="chip">Code reviews</span><span class="chip">Reliability</span><span class="chip">Maintainability</span><span class="chip">Agile</span><span class="chip">Client collaboration</span></div></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head"><span class="eyebrow">Background</span><h2>Education, languages and achievements</h2></div>
+    <div class="trio">
+      <div class="card"><span class="eyebrow">Education</span><b>B.E. Electronics and Communication</b><p class="muted">Canara Engineering College, Mangalore, Karnataka</p><p class="muted">08/2019 to 05/2023</p></div>
+      <div class="card"><span class="eyebrow">Languages</span><b>English, Hindi, Kannada</b></div>
+      <div class="card"><span class="eyebrow">Achievement</span><b>Hosted Digital Excellence GALA Awards 2024</b><p class="muted">Cognizant Technology Solutions</p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2 style="margin-top:10px">Let's build something useful</h2>
+        <p>I am open to UI Developer and frontend roles, onsite in Bengaluru. Send me a note and I will reply soon.</p>
+        <div class="cta"><button class="btn primary" type="button" id="copyMail">Copy email address</button></div>
+      </div>
+      <div class="rows">
+        <div><small>Email</small><a href="mailto:bachodidishapai26@gmail.com">bachodidishapai26@gmail.com</a></div>
+        <div><small>Phone</small><a href="tel:+916363544483">+91 63635 44483</a></div>
+        <div><small>LinkedIn</small><a href="https://linkedin.com/in/disha-pai-789038223/">linkedin.com/in/disha-pai-789038223</a></div>
+        <div><small>Location</small><span>Bengaluru, Karnataka (onsite)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; 2026 Disha Pai</footer>
+</main>
+
+<script>
+/* ---------- ClinicPulse (sample data) ---------- */
+(function(){
+  function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  var DAYS=90, r=rng(11), today=new Date();
+  var base=[{n:'Cardiology',b:42},{n:'Radiology',b:64},{n:'Orthopedics',b:35},{n:'Pediatrics',b:50}];
+  var dates=[];
+  for(var i=0;i<DAYS;i++){var d=new Date(today);d.setDate(today.getDate()-(DAYS-1-i));dates.push(d)}
+  var depts=base.map(function(d,k){
+    var v=[],w=[];
+    for(var i=0;i<DAYS;i++){
+      var wk=dates[i].getDay(); var f=(wk===0||wk===6)?0.6:1;
+      v.push(Math.round(d.b*f*(0.85+r()*0.3)));
+      w.push(Math.round(16+k*3+r()*20));
+    }
+    return {name:d.n,v:v,w:w};
+  });
+  var state={range:30,dept:'All'};
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(d){return d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})};
+  var fmtLong=function(d){return d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})};
+
+  function series(){
+    var start=DAYS-state.range, out=[];
+    for(var i=start;i<DAYS;i++){
+      var tot=0;
+      depts.forEach(function(d){ if(state.dept==='All'||d.name===state.dept) tot+=d.v[i]; });
+      out.push({i:i,v:tot});
+    }
+    return out;
+  }
+  function render(){
+    var s=series(), n=s.length, start=DAYS-state.range;
+    var total=s.reduce(function(a,p){return a+p.v},0);
+    var peak=s.reduce(function(a,p){return p.v>a.v?p:a},s[0]);
+    var wsum=0,wcnt=0;
+    depts.forEach(function(d){ if(state.dept==='All'||d.name===state.dept){ for(var i=start;i<DAYS;i++){wsum+=d.w[i];wcnt++} }});
+    $('kTotal').textContent=total.toLocaleString('en-IN');
+    $('kAvg').textContent=Math.round(total/n);
+    $('kWait').textContent=Math.round(wsum/wcnt)+' min';
+    $('kPeak').textContent=peak.v;
+    $('readout').textContent='Busiest day: '+fmtLong(dates[peak.i])+' ('+peak.v+' visits)';
+    drawLine(s);
+    drawBars(start);
+    document.querySelectorAll('[data-range]').forEach(function(b){b.setAttribute('aria-pressed',String(+b.dataset.range===state.range))});
+    $('deptSel').value=state.dept;
+  }
+  function drawLine(s){
+    var W=640,H=220,L=40,R=12,T=14,B=26, iw=W-L-R, ih=H-T-B;
+    var max=Math.max.apply(null,s.map(function(p){return p.v}));
+    var top=Math.ceil(max*1.1/10)*10;
+    var x=function(k){return L+(s.length===1?0:k*iw/(s.length-1))};
+    var y=function(v){return T+ih-(v/top)*ih};
+    var pts=s.map(function(p,k){return x(k).toFixed(1)+','+y(p.v).toFixed(1)});
+    var g='';
+    [0,top/2,top].forEach(function(t){
+      g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'"/>'+
+         '<text class="ax" x="'+(L-6)+'" y="'+(y(t)+4)+'" text-anchor="end">'+Math.round(t)+'</text>';
+    });
+    var last=s[s.length-1], lastK=s.length-1;
+    g+='<polygon class="area" points="'+L+','+y(0)+' '+pts.join(' ')+' '+x(lastK)+','+y(0)+'"/>';
+    g+='<polyline class="ln" points="'+pts.join(' ')+'"/>';
+    g+='<circle class="dot" cx="'+x(lastK)+'" cy="'+y(last.v)+'" r="4.5"/>';
+    g+='<text class="ax" x="'+L+'" y="'+(H-6)+'">'+fmt(dates[s[0].i])+'</text>';
+    g+='<text class="ax" x="'+(W-R)+'" y="'+(H-6)+'" text-anchor="end">'+fmt(dates[last.i])+'</text>';
+    g+='<line class="cursor" id="cur" x1="0" x2="0" y1="'+T+'" y2="'+(T+ih)+'" style="display:none"/>';
+    $('trend').innerHTML=g;
+    var svg=$('trend');
+    svg.onpointermove=function(e){
+      var rc=svg.getBoundingClientRect(), px=(e.clientX-rc.left)/rc.width*W;
+      var k=Math.round((px-L)/iw*(s.length-1)); k=Math.max(0,Math.min(s.length-1,k));
+      var c=$('cur'); c.style.display='block'; c.setAttribute('x1',x(k)); c.setAttribute('x2',x(k));
+      $('readout').textContent=fmtLong(dates[s[k].i])+': '+s[k].v+' visits';
+    };
+    svg.onpointerleave=function(){var c=$('cur'); if(c) c.style.display='none';
+      var p=s.reduce(function(a,q){return q.v>a.v?q:a},s[0]);
+      $('readout').textContent='Busiest day: '+fmtLong(dates[p.i])+' ('+p.v+' visits)'};
+  }
+  function drawBars(start){
+    var tots=depts.map(function(d){var t=0;for(var i=start;i<DAYS;i++)t+=d.v[i];return t});
+    var m=Math.max.apply(null,tots), h='';
+    depts.forEach(function(d,k){
+      var dim=state.dept!=='All'&&state.dept!==d.name;
+      h+='<button type="button" class="bar'+(dim?' dim':'')+'" data-d="'+d.name+'"><span>'+d.name+'</span><span class="track"><span class="fill" style="width:'+(tots[k]/m*100)+'%"></span></span><span class="num">'+tots[k]+'</span></button>';
+    });
+    $('bars').innerHTML=h;
+    document.querySelectorAll('.bar').forEach(function(b){b.onclick=function(){state.dept=(state.dept===b.dataset.d)?'All':b.dataset.d;render()}});
+  }
+  document.querySelectorAll('[data-range]').forEach(function(b){b.onclick=function(){state.range=+b.dataset.range;render()}});
+  $('deptSel').onchange=function(e){state.dept=e.target.value;render()};
+  render();
+})();
+
+/* ---------- PromptLens ---------- */
+(function(){
+  var rules=[
+    {key:'Context',re:/\b(you are|act as|as an? |context|i am|i'm|my (team|project|goal|company)|we are|background)\b/i,tip:'Say who the AI should act as, or give a line of background.'},
+    {key:'Clear task',re:/\b(write|explain|summari[sz]e|create|generate|list|compare|translate|review|fix|draft|analy[sz]e|describe|plan|build|suggest|rewrite)\b/i,tip:'Start with an action word such as write, compare or summarize.'},
+    {key:'Limits',re:/\b(must|only|at most|no more than|under \d+|within \d+|exactly|avoid|do not|don't|\d+\s*(words|sentences|bullets|points|lines|minutes))\b/i,tip:'Add a limit, for example a word count or something to avoid.'},
+    {key:'Output format',re:/\b(table|bullets?|json|markdown|numbered|steps|paragraphs?|csv|headings?|as a list|format)\b/i,tip:'Name the output shape: a table, bullet points, JSON or steps.'},
+    {key:'Example or audience',re:/\b(for example|e\.g\.|such as|example|input:|output:|audience|beginners?|students?|for (a|an|my) )/i,tip:'Add an example, or say who the answer is for.'}
+  ];
+  var labels=[[0,'Vague'],[20,'Needs work'],[40,'Basic'],[60,'Decent'],[80,'Strong'],[100,'Excellent']];
+  var strong='You are a friendly diabetes nurse educator. Explain how insulin works for beginners in 5 bullet points, under 120 words, avoid medical jargon, and end with one example of a daily routine.';
+  var weak='Write about diabetes.';
+  var ta=document.getElementById('prompt');
+  function run(){
+    var t=ta.value, score=0, html='';
+    rules.forEach(function(r){
+      var ok=r.re.test(t); if(ok) score+=20;
+      html+='<li class="'+(ok?'ok':'')+'"><span class="mark"></span><span><b>'+r.key+'</b><span class="tip">'+r.tip+'</span></span></li>';
+    });
+    if(!t.trim()){score=0}
+    document.getElementById('checks').innerHTML=html;
+    document.getElementById('scoreNum').textContent=score;
+    document.getElementById('rail').style.width=score+'%';
+    document.getElementById('rail').style.background=score>=80?'var(--good)':'var(--accent)';
+    document.getElementById('verdict').textContent=labels.filter(function(l){return score>=l[0]}).pop()[1];
+  }
+  ta.addEventListener('input',run);
+  document.getElementById('strong').onclick=function(){ta.value=strong;run()};
+  document.getElementById('weak').onclick=function(){ta.value=weak;run()};
+  run();
+})();
+
+/* ---------- Project pages and GitHub links ---------- */
+/* Paste your repository links between the quotes when they are ready. */
+var GITHUB={clinicpulse:'https://github.com/Dishapai26/clinicpulse',promptlens:'https://github.com/Dishapai26/promptlense'};
+document.querySelectorAll('[data-gh]').forEach(function(a){
+  var u=GITHUB[a.dataset.gh]; if(u){a.href=u;a.hidden=false}
+});
+function route(){
+  var h=location.hash.slice(1), solo=(h==='clinicpulse'||h==='promptlens');
+  document.body.classList.toggle('solo',solo);
+  document.querySelectorAll('.project').forEach(function(p){p.classList.toggle('active',solo&&p.id===h)});
+  if(solo) window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+
+/* ---------- Copy email ---------- */
+document.getElementById('copyMail').addEventListener('click',function(){
+  var b=this;
+  try{navigator.clipboard.writeText('bachodidishapai26@gmail.com').then(function(){b.textContent='Copied'},function(){b.textContent='Email is shown on the right'})}
+  catch(e){b.textContent='Email is shown on the right'}
+});
+</script>
+</body>
+</html>
